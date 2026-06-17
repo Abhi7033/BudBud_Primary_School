@@ -23,13 +23,17 @@
 
   const openMenu = () => {
     links.classList.add('open');
+    toggle.classList.add('is-open');
     backdrop.classList.add('show');
     document.body.classList.add('menu-open');
+    toggle.setAttribute('aria-expanded', 'true');
   };
   const closeMenu = () => {
     links.classList.remove('open');
+    toggle.classList.remove('is-open');
     backdrop.classList.remove('show');
     document.body.classList.remove('menu-open');
+    toggle.setAttribute('aria-expanded', 'false');
   };
   const isOpen = () => links.classList.contains('open');
 

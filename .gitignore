@@ -2,3 +2,8 @@
 Thumbs.db
 *.log
 .qodo/
+
+# stray screenshots
+IMG_*.png
+_shot*.png
+_m*.png
