@@ -15,15 +15,36 @@
   /* ---- Mobile menu ---- */
   const toggle = document.getElementById('navToggle');
   const links = document.getElementById('navLinks');
+
+  // Dimming backdrop shown behind the open menu (tap to close)
+  const backdrop = document.createElement('div');
+  backdrop.className = 'nav__backdrop';
+  document.body.appendChild(backdrop);
+
+  const openMenu = () => {
+    links.classList.add('open');
+    backdrop.classList.add('show');
+    document.body.classList.add('menu-open');
+  };
   const closeMenu = () => {
     links.classList.remove('open');
+    backdrop.classList.remove('show');
     document.body.classList.remove('menu-open');
   };
-  toggle.addEventListener('click', () => {
-    links.classList.toggle('open');
-    document.body.classList.toggle('menu-open');
+  const isOpen = () => links.classList.contains('open');
+
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    isOpen() ? closeMenu() : openMenu();
   });
+
+  // Close on link tap, backdrop tap, tap anywhere outside, or Escape
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  backdrop.addEventListener('click', closeMenu);
+  document.addEventListener('click', (e) => {
+    if (isOpen() && !links.contains(e.target) && !toggle.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
   /* ---- Scroll reveal ---- */
   const reveals = document.querySelectorAll('.reveal');
